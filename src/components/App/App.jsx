@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
 import Leaderboard from '../Leaderboard/Leaderboard';
+import HomePage from '../HomePage/HomePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -84,7 +85,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/home" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -109,14 +110,14 @@ function App() {
             exact
             path="/home"
           >
-            {/* {user.id ?
+            {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <HomePage />
               :
               // Otherwise, show the Landing page
               <LandingPage />
-            } */}
+            }
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
