@@ -15,12 +15,13 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import InfoPage from '../EventsPage/EventsPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
+import Leaderboard from '../Leaderboard/Leaderboard';
 
 function App() {
   const dispatch = useDispatch();
@@ -63,9 +64,17 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path="/info"
+            path="/events"
           >
             <InfoPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/leaderboard"
+          >
+            <Leaderboard />
           </ProtectedRoute>
 
           <Route
@@ -100,14 +109,14 @@ function App() {
             exact
             path="/home"
           >
-            {user.id ?
+            {/* {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
               <Redirect to="/user" />
               :
               // Otherwise, show the Landing page
               <LandingPage />
-            }
+            } */}
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
