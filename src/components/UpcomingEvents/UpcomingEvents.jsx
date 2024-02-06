@@ -1,21 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const columns = [
   {
     field: 'course',
     headerName: 'Course',
     width: 150,
-    editable: true,
+    // editable: true,
   },
   {
     field: 'date',
     headerName: 'Date',
     width: 150,
-    editable: true,
+    // editable: true,
     valueFormatter: params => (
       new Date(params?.value).toLocaleDateString()
     )
@@ -24,23 +25,33 @@ const columns = [
     field: 'teebox',
     headerName: 'Teebox',
     width: 110,
-    editable: true,
+    // editable: true,
   },
   {
     field: 'format',
     headerName: 'Format',
     width: 150,
-    editable: true,
+    // editable: true,
   },
 ];
 
 function UpcomingEvents() {
   const events = useSelector(store => store.events)
-  const date = events.date
+  const user = useSelector(store => store.user)
+  const history = useHistory()
+
+  // Local state that is updated when a row is clicked on event list
+  const [rowId, setRowId] = useState(0)
+
+
+  const handleModify = () => {
+    history.push(`/events/${rowId}`)
+  }
 
   return (
     <Box sx={{ height: 400, width: '100%', m: '20px' }}>
       <Typography variant='h5'>Upcoming Events:</Typography>
+      {user.access_level === 1 && <Button variant='contained' onClick={handleModify}>Modify</Button>}
       <DataGrid
         rows={events}
         columns={columns}
@@ -52,8 +63,9 @@ function UpcomingEvents() {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
+        onRowClick={params => setRowId(params.id)}
+        // checkboxSelection
+        // disableRowSelectionOnClick
       />
     </Box>
   );
