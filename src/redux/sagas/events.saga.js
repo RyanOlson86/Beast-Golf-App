@@ -12,7 +12,7 @@ function* fetchEvents() {
 }
 
 function* eventsSaga() {
-  yield takeLatest('FETCH_USER', fetchEvents);
+  yield takeLatest('FETCH_EVENTS', fetchEvents);
 }
 
 export default eventsSaga;
