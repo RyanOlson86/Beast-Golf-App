@@ -4,13 +4,15 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
+
 function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+        {/* <h2 className="nav-title">Prime Solo Project</h2> */}
+        <img src="/images/BGA_LogoSeries-04 - Cursive Beast white.png" />
       </Link>
       <div>
         {/* If no user is logged in, show these links */}
@@ -24,12 +26,16 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/user">
+            <Link className="navLink" to="/home">
               Home
             </Link>
 
-            <Link className="navLink" to="/info">
-              Info Page
+            <Link className="navLink" to="/events">
+              Events
+            </Link>
+
+            <Link className="navLink" to="/leaderboard">
+              Leaderboard
             </Link>
 
             <LogOutButton className="navLink" />

@@ -15,12 +15,14 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import EventsPage from '../EventsPage/EventsPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
+import Leaderboard from '../Leaderboard/Leaderboard';
+import HomePage from '../HomePage/HomePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +31,7 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({type: 'FETCH_EVENTS'});
   }, [dispatch]);
 
   return (
@@ -61,11 +64,19 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows EventsPage else shows LoginPage
             exact
-            path="/info"
+            path="/events"
           >
-            <InfoPage />
+            <EventsPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows EventsPage else shows LoginPage
+            exact
+            path="/leaderboard"
+          >
+            <Leaderboard />
           </ProtectedRoute>
 
           <Route
@@ -75,7 +86,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/home" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -103,7 +114,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <HomePage />
               :
               // Otherwise, show the Landing page
               <LandingPage />
