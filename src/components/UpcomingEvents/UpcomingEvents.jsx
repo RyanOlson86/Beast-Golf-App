@@ -35,7 +35,7 @@ function UpcomingEvents() {
   const events = useSelector(store => store.events)
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ height: 400, width: '100%', m: '20px' }}>
       <Typography variant='h5'>Upcoming Events:</Typography>
       <DataGrid
         rows={events}
