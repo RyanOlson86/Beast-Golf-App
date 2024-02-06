@@ -27,6 +27,12 @@ function AddEvent() {
     console.log(formatInput)
     console.log(teeboxInput)
     console.log(dateInput)
+    dispatch({type: 'ADD_EVENT', payload: {
+        course: courseInput,
+        date: dateInput,
+        teebox: teeboxInput,
+        format: formatInput
+    }})
     defaultInputs();
   }
 
