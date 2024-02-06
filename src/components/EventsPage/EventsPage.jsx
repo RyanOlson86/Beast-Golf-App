@@ -1,16 +1,14 @@
-import React from 'react';
+import React from "react";
+import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
+import AddEvent from "../AddEvent/AddEvent";
 
-// This is one of our simplest components
-// It doesn't have local state
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is
-
-function InfoPage() {
+function EventsPage() {
   return (
-    <div className="container">
-      <p>Info Page</p>
-    </div>
+    <>
+      <AddEvent />
+      <UpcomingEvents />
+    </>
   );
 }
 
-export default InfoPage;
+export default EventsPage;
