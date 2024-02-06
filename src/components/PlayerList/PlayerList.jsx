@@ -7,36 +7,33 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const columns = [
   {
-    field: 'course',
-    headerName: 'Course',
+    field: 'player1',
+    headerName: 'Player 1',
     width: 150,
     // editable: true,
   },
   {
-    field: 'date',
-    headerName: 'Date',
+    field: 'player2',
+    headerName: 'Player 2',
     width: 150,
     // editable: true,
-    valueFormatter: params => (
-      new Date(params?.value).toLocaleDateString()
-    )
   },
   {
-    field: 'teebox',
-    headerName: 'Teebox',
+    field: 'penalty',
+    headerName: 'Penalty',
     width: 110,
     // editable: true,
   },
   {
-    field: 'format',
-    headerName: 'Format',
+    field: 'score',
+    headerName: 'Net Score',
     width: 150,
     // editable: true,
   },
 ];
 
-function UpcomingEvents() {
-  const events = useSelector(store => store.events)
+function PlayerList(props) {
+//   const events = useSelector(store => store.events)
   const user = useSelector(store => store.user)
   const history = useHistory()
 
@@ -45,15 +42,16 @@ function UpcomingEvents() {
 
 
   const handleModify = () => {
-    history.push(`/events/${rowId}`)
+    // history.push(`/events/${rowId}`)
+    console.log('clicked', rowId)
   }
 
   return (
     <Box sx={{ height: 400, width: '100%', m: '20px' }}>
-      <Typography variant='h5'>Upcoming Events:</Typography>
+      <Typography variant='h5'>Teams:</Typography>
       {user.access_level === 1 && <Button variant='contained' onClick={handleModify}>Modify</Button>}
       <DataGrid
-        rows={events}
+        rows={props.mockData}
         columns={columns}
         initialState={{
           pagination: {
@@ -72,4 +70,4 @@ function UpcomingEvents() {
 }
 
 
-export default UpcomingEvents
+export default PlayerList
