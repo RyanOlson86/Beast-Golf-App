@@ -16,6 +16,9 @@ const columns = [
     headerName: 'Date',
     width: 150,
     editable: true,
+    valueFormatter: params => (
+      new Date(params?.value).toLocaleDateString()
+    )
   },
   {
     field: 'teebox',
@@ -33,6 +36,7 @@ const columns = [
 
 function UpcomingEvents() {
   const events = useSelector(store => store.events)
+  const date = events.date
 
   return (
     <Box sx={{ height: 400, width: '100%', m: '20px' }}>
