@@ -24,6 +24,7 @@ function ModifyEvents() {
   useEffect(() => {
     dispatch({ type: "FETCH_EVENTS" });
     dispatch({ type: "FETCH_EVENT_DETAILS", payload: id });
+    dispatch({type: 'FETCH_ALL_PLAYERS'});
   }, []);
 
   // Fetch all events from store

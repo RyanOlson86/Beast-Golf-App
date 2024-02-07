@@ -1,27 +1,23 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { Button, Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { Button, Typography, Select, TextField, Box, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
 function AddPlayers() {
   // Using hooks create local state for form inputs
   const [playerOne, setPlayerOne] = useState("");
   const [playerTwo, setPlayerTwo] = useState("");
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const players = useSelector((store) => store.players);
 
   // Function to reset Form Inputs to default
   const defaultInputs = () => {
-    setPlayerOne('');
-    setPlayerTwo('');
-  }
+    setPlayerOne("");
+    setPlayerTwo("");
+  };
 
   // Function to Handle Add
   const handleAdd = () => {
-    console.log(playerOne)
-    console.log(playerTwo)
-
     // dispatch({type: 'ADD_EVENT', payload: {
     //     course: courseInput,
     //     date: dateInput,
@@ -29,7 +25,7 @@ function AddPlayers() {
     //     format: formatInput
     // }})
     defaultInputs();
-  }
+  };
 
   return (
     <Box
@@ -42,24 +38,32 @@ function AddPlayers() {
       autoComplete="off"
     >
       <Typography variant="h5">Add Players:</Typography>
-      <TextField
-        id="player-one"
-        label="Player 1"
-        variant="outlined"
-        size="small"
-        value={playerOne}
-        onChange={(event) => setPlayerOne(event.target.value)}
-      />
-      <TextField
-        id="player-two"
-        label="Player 2"
-        variant="outlined"
-        size="small"
-        value={playerTwo}
-        onChange={(event) => setPlayerTwo(event.target.value)}
-      />
-      
-      <Button variant="contained" onClick={handleAdd}>ADD</Button>
+
+      <FormControl>
+        <InputLabel>Player One</InputLabel>
+        <Select value={playerOne} onChange={(event) => setPlayerOne(event.target.value)}>
+          {players.map((player) => (
+            <MenuItem key={player.id} value={player.id}>
+              {player.full_name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <FormControl>
+        <InputLabel>Player Two</InputLabel>
+        <Select value={playerTwo} onChange={(event) => setPlayerTwo(event.target.value)}>
+          {players.map((player) => (
+            <MenuItem key={player.id} value={player.id}>
+              {player.full_name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <Button variant="contained" onClick={handleAdd}>
+        ADD
+      </Button>
     </Box>
   );
 }
