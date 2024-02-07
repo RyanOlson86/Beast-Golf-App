@@ -32,14 +32,12 @@ const columns = [
   },
 ];
 
-function PlayerList(props) {
+function PlayerList({teams}) {
 //   const events = useSelector(store => store.events)
   const user = useSelector(store => store.user)
-  const history = useHistory()
 
   // Local state that is updated when a row is clicked on event list
   const [rowId, setRowId] = useState(0)
-
 
   const handleModify = () => {
     // history.push(`/events/${rowId}`)
@@ -51,7 +49,7 @@ function PlayerList(props) {
       <Typography variant='h5'>Teams:</Typography>
       {user.access_level === 1 && <Button variant='contained' onClick={handleModify}>Modify</Button>}
       <DataGrid
-        rows={props.mockData}
+        rows={teams}
         columns={columns}
         initialState={{
           pagination: {
