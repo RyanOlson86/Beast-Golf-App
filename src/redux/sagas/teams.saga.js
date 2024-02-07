@@ -12,8 +12,8 @@ function* fetchDetails(action) {
 }
 
 
-function* eventsSaga() {
+function* teamsSaga() {
   yield takeLatest('FETCH_EVENT_DETAILS', fetchDetails);
 }
 
-export default eventsSaga;
+export default teamsSaga;
