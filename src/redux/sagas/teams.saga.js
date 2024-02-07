@@ -7,13 +7,22 @@ function* fetchDetails(action) {
     const response = yield axios.get(`/api/teams/${action.payload}`);
     yield put({ type: 'SET_EVENT_PLAYERS', payload: response.data });
   } catch (error) {
-    console.log('Events get request failed', error);
+    console.log('Teams get request failed', error);
   }
 }
 
+function* addPlayerToEvent(action) {
+  try {
+    yield axios.post(`/api/teams`, action.payload);
+    yield put({ type: 'FETCH_EVENT_DETAILS', payload: action.payload.event_id});
+  } catch (error) {
+    console.log('Teams post request failed', error);
+  }
+}
 
 function* teamsSaga() {
   yield takeLatest('FETCH_EVENT_DETAILS', fetchDetails);
+  yield takeLatest('ADD_PLAYER_TO_EVENT', addPlayerToEvent)
 }
 
 export default teamsSaga;

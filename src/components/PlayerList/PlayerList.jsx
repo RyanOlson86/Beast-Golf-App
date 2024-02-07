@@ -46,19 +46,22 @@ function PlayerList({teams}) {
 
   return (
     <Box sx={{ height: 400, width: '100%', m: '20px' }}>
+      <Box>
       <Typography variant='h5'>Teams:</Typography>
       {user.access_level === 1 && <Button variant='contained' onClick={handleModify}>Modify</Button>}
+      </Box>
+      
       <DataGrid
         rows={teams}
         columns={columns}
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 10,
             },
           },
         }}
-        pageSizeOptions={[5]}
+        pageSizeOptions={[10]}
         onRowClick={params => setRowId(params.id)}
         // checkboxSelection
         // disableRowSelectionOnClick
