@@ -7,38 +7,40 @@ import AddPlayers from "../AddPlayers/AddPlayers";
 
 // Mock data
 const mockData = [
-    {
-        id: 1,
-        player1: 'Ryan Olson',
-        player2: 'Josh Leary',
-        penalty: 1,
-        score: null
-    }
-]
+  {
+    id: 1,
+    player1: "Ryan Olson",
+    player2: "Josh Leary",
+    penalty: 1,
+    score: null,
+  },
+];
 
 function ModifyEvents() {
   const dispatch = useDispatch();
+  // Get event ID from useParams
+  const { id } = useParams();
 
   useEffect(() => {
     dispatch({ type: "FETCH_EVENTS" });
+    dispatch({ type: "FETCH_EVENT_DETAILS", payload: id });
   }, []);
 
   // Fetch all events from store
-  const events = useSelector((store) => store.events);
-  const user = useSelector((store) => store.user);
-
-  // Get event ID from useParams
-  const { id } = useParams();
+  const store = useSelector((store) => store);
+  const events = store.events
+  const user = store.user
+  const teams = store.teams
 
   // Filter All events to specific event by ID
   const eventArray = events.filter((event) => event?.id == id);
   const eventDetails = eventArray[0];
 
   return (
-    <Box sx={{ flexGrow: 1 , textAlign: 'center'}}>
+    <Box sx={{ flexGrow: 1, textAlign: "center" }}>
       <Grid container spacing={2}>
         <Grid item xs={3}>
-          <Typography variant="h6">Course:</Typography >
+          <Typography variant="h6">Course:</Typography>
           <Typography variant="h6">{eventDetails?.course}</Typography>
         </Grid>
         <Grid item xs={3}>
@@ -56,7 +58,7 @@ function ModifyEvents() {
       </Grid>
       {/* Add PlayerList component and pass event */}
       {user.access_level === 1 && <AddPlayers />}
-      <PlayerList mockData={mockData}/>
+      <PlayerList teams={teams} />
     </Box>
   );
 }
