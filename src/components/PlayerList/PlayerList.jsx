@@ -7,62 +7,61 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const columns = [
   {
-    field: 'course',
-    headerName: 'Course',
+    field: 'player1',
+    headerName: 'Player 1',
     width: 150,
     // editable: true,
   },
   {
-    field: 'date',
-    headerName: 'Date',
+    field: 'player2',
+    headerName: 'Player 2',
     width: 150,
     // editable: true,
-    valueFormatter: params => (
-      new Date(params?.value).toLocaleDateString()
-    )
   },
   {
-    field: 'teebox',
-    headerName: 'Teebox',
+    field: 'penalty',
+    headerName: 'Penalty',
     width: 110,
     // editable: true,
   },
   {
-    field: 'format',
-    headerName: 'Format',
+    field: 'score',
+    headerName: 'Net Score',
     width: 150,
     // editable: true,
   },
 ];
 
-function UpcomingEvents() {
-  const events = useSelector(store => store.events)
+function PlayerList({teams}) {
+//   const events = useSelector(store => store.events)
   const user = useSelector(store => store.user)
-  const history = useHistory()
 
   // Local state that is updated when a row is clicked on event list
   const [rowId, setRowId] = useState(0)
 
-
   const handleModify = () => {
-    history.push(`/events/${rowId}`)
+    // history.push(`/events/${rowId}`)
+    console.log('clicked', rowId)
   }
 
   return (
     <Box sx={{ height: 400, width: '100%', m: '20px' }}>
-      <Typography variant='h5'>Upcoming Events:</Typography>
+      <Box>
+      <Typography variant='h5'>Teams:</Typography>
       {user.access_level === 1 && <Button variant='contained' onClick={handleModify}>Modify</Button>}
+      </Box>
+      
       <DataGrid
-        rows={events}
+        rows={teams}
         columns={columns}
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 10,
             },
           },
         }}
-        pageSizeOptions={[5]}
+        pageSizeOptions={[10]}
         onRowClick={params => setRowId(params.id)}
         // checkboxSelection
         // disableRowSelectionOnClick
@@ -72,4 +71,4 @@ function UpcomingEvents() {
 }
 
 
-export default UpcomingEvents
+export default PlayerList

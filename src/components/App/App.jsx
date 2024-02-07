@@ -23,6 +23,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import './App.css';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import HomePage from '../HomePage/HomePage';
+import ModifyEvents from '../ModifyEvents/ModifyEvents';
 
 function App() {
   const dispatch = useDispatch();
@@ -72,11 +73,19 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows EventsPage else shows LoginPage
+            // logged in shows Leaderboard else shows LoginPage
             exact
             path="/leaderboard"
           >
             <Leaderboard />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows ModifyEvents else shows LoginPage
+            exact
+            path="/events/:id"
+          >
+            <ModifyEvents />
           </ProtectedRoute>
 
           <Route
