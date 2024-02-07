@@ -34,12 +34,12 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 
 // POST route to add new team to DB --- ADMIN ONLY
 // rejectUnathenticated verifies user is logged in or else sends status 403
-router.post("/:id", rejectUnauthenticated, (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   // If user is Admin (access_level 1) new INSERT query runs, else send forbidden
   if (req.user.access_level === 1) {
     const queryText = `INSERT INTO "event_scores" ("player_one", "player_two", "event_id")
     Values ( $1, $2, $3 );`;
-    const queryParams = [req.body.playerOneId, req.body.playerTwoId, req.params.id];
+    const queryParams = [req.body.playerOneId, req.body.playerTwoId, req.body.event_id];
 
     pool
       .query(queryText, queryParams)

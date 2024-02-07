@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Typography, Select, TextField, Box, MenuItem, FormControl, InputLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
-function AddPlayers() {
+function AddPlayers({event_id}) {
   // Using hooks create local state for form inputs
   const [playerOne, setPlayerOne] = useState("");
   const [playerTwo, setPlayerTwo] = useState("");
@@ -18,12 +18,11 @@ function AddPlayers() {
 
   // Function to Handle Add
   const handleAdd = () => {
-    // dispatch({type: 'ADD_EVENT', payload: {
-    //     course: courseInput,
-    //     date: dateInput,
-    //     teebox: teeboxInput,
-    //     format: formatInput
-    // }})
+    dispatch({type: 'ADD_PLAYER_TO_EVENT', payload: {
+        event_id: event_id,
+        playerOneId: playerOne,
+        playerTwoId: playerTwo
+    }})
     defaultInputs();
   };
 

@@ -58,7 +58,7 @@ function ModifyEvents() {
         </Grid>
       </Grid>
       {/* Add PlayerList component and pass event */}
-      {user.access_level === 1 && <AddPlayers />}
+      {user.access_level === 1 && <AddPlayers event_id={id}/>}
       <PlayerList teams={teams} />
     </Box>
   );
