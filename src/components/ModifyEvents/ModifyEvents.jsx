@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { Box, Grid, Typography } from "@mui/material";
 import PlayerList from "../PlayerList/PlayerList";
+import AddPlayers from "../AddPlayers/AddPlayers";
 
 // Mock data
 const mockData = [
@@ -24,6 +25,7 @@ function ModifyEvents() {
 
   // Fetch all events from store
   const events = useSelector((store) => store.events);
+  const user = useSelector((store) => store.user);
 
   // Get event ID from useParams
   const { id } = useParams();
@@ -53,6 +55,7 @@ function ModifyEvents() {
         </Grid>
       </Grid>
       {/* Add PlayerList component and pass event */}
+      {user.access_level === 1 && <AddPlayers />}
       <PlayerList mockData={mockData}/>
     </Box>
   );
