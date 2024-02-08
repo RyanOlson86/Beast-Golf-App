@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { Button, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const columns = [
@@ -33,25 +33,36 @@ const columns = [
     width: 150,
     // editable: true,
   },
+  {
+    field: 'complete',
+    headerName: 'Event Complete',
+    width: 150,
+  },
 ];
 
 function UpcomingEvents() {
   const events = useSelector(store => store.events)
   const user = useSelector(store => store.user)
   const history = useHistory()
+  const dispatch = useDispatch()
 
   // Local state that is updated when a row is clicked on event list
   const [rowId, setRowId] = useState(0)
 
 
-  const handleModify = () => {
+  const handleAddPlayers = () => {
     history.push(`/events/${rowId}`)
+  }
+
+  const handleComplete = () => {
+    dispatch({type: 'COMPLETE_EVENT', payload: rowId})
   }
 
   return (
     <Box sx={{ height: 400, width: '100%', m: '20px' }}>
       <Typography variant='h5'>Upcoming Events:</Typography>
-      {user.access_level === 1 && <Button variant='contained' onClick={handleModify}>Modify</Button>}
+      {user.access_level === 1 && <Button variant='contained' size='small' sx={{m: '10px'}} onClick={handleAddPlayers}>Add Players</Button>}
+      {user.access_level === 1 && <Button variant='contained' color='secondary' size='small' onClick={handleComplete}>Mark Event Complete</Button>}
       <DataGrid
         rows={events}
         columns={columns}
