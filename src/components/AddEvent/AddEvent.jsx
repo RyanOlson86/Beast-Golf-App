@@ -40,7 +40,7 @@ function AddEvent() {
     <Box
       component="form"
       sx={{
-        "& > :not(style)": { m: 0, width: "20ch" },
+        "& > :not(style)": { m: 1, width: "20ch" },
         m: "20px",
       }}
       noValidate
