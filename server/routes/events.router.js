@@ -52,7 +52,28 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
       .query(queryText, [req.params.id])
       .then((result) => {
         console.log("req.body", req.body);
-        res.sendStatus(201);
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log("Error in /events PUT : ", error);
+      });
+  } else {
+    res.sendStatus(403);
+  }
+});
+
+// DELETE route to delete event from DB --- ADMIN ONLY
+// rejectUnathenticated verifies user is logged in or else sends status 403
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
+  // If user is Admin (access_level 1) new INSERT query runs, else send forbidden
+  if (req.user.access_level === 1) {
+    const queryText = `DELETE FROM "events" WHERE "id"=$1;`;
+
+    pool
+      .query(queryText, [req.params.id])
+      .then((result) => {
+        console.log("req.body", req.body);
+        res.sendStatus(200);
       })
       .catch((error) => {
         console.log("Error in /events PUT : ", error);

@@ -58,11 +58,16 @@ function UpcomingEvents() {
     dispatch({type: 'COMPLETE_EVENT', payload: rowId})
   }
 
+  const handleDelete = () => {
+    dispatch({type: 'DELETE_EVENT', payload: rowId})
+  }
+
   return (
     <Box sx={{ height: 400, width: '100%', m: '20px' }}>
       <Typography variant='h5'>Upcoming Events:</Typography>
       {user.access_level === 1 && <Button variant='contained' size='small' sx={{m: '10px'}} onClick={handleAddPlayers}>Add Players</Button>}
-      {user.access_level === 1 && <Button variant='contained' color='secondary' size='small' onClick={handleComplete}>Mark Event Complete</Button>}
+      {user.access_level === 1 && <Button variant='contained' color='secondary' size='small' sx={{m: '10px'}} onClick={handleComplete}>Mark Event Complete</Button>}
+      {user.access_level === 1 && <Button variant='contained' color='error' size='small' sx={{m: '10px'}} onClick={handleDelete}>Delete</Button>}
       <DataGrid
         rows={events}
         columns={columns}
