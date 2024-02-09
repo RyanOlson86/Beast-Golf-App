@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  Button,
-  Typography,
   TableContainer,
   Table,
   TableHead,
@@ -9,39 +7,8 @@ import {
   TableCell,
   TableRow,
   Paper,
-  Input,
-  TextField,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import UpdateScoreInput from "../UpdateScoreInput/UpdateScoreInput";
-
-const columns = [
-  {
-    field: "player1",
-    headerName: "Player 1",
-    width: 150,
-    // editable: true,
-  },
-  {
-    field: "player2",
-    headerName: "Player 2",
-    width: 150,
-    // editable: true,
-  },
-  {
-    field: "penalty",
-    headerName: "Penalty",
-    width: 110,
-    // editable: true,
-  },
-  {
-    field: "score",
-    headerName: "Net Score",
-    width: 150,
-    // editable: true,
-  },
-];
 
 function PlayerList2({ teams, event_id }) {
 
