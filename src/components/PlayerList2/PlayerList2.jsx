@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import UpdateScoreInput from "../UpdateScoreInput/UpdateScoreInput";
 
 const columns = [
   {
@@ -43,25 +44,6 @@ const columns = [
 ];
 
 function PlayerList2({ teams, event_id }) {
-  //   const events = useSelector(store => store.events)
-  const user = useSelector((store) => store.user);
-  const dispatch = useDispatch();
-
-  const [scoreInput, setScore] = useState(0);
-
-  const handleUpdate = (event) => {
-    // history.push(`/events/${rowId}`)
-    console.log("clicked", event.target.id, scoreInput, event_id);
-    dispatch({
-      type: "UPDATE_SCORE",
-      payload: {
-        event_id: event_id,
-        team_id: event.target.id,
-        score: scoreInput,
-      },
-    });
-    setScore(0);
-  };
 
   return (
     <TableContainer component={Paper}>
@@ -85,14 +67,7 @@ function PlayerList2({ teams, event_id }) {
               <TableCell align="left">{row.player2}</TableCell>
               <TableCell align="left">{row.penalty}</TableCell>
               <TableCell align="left">{row.score}</TableCell>
-              <TableCell align="center">
-                <TextField variant="outlined" value={scoreInput} type="number" onChange={(event) => setScore(event.target.value)} />
-              </TableCell>
-              <TableCell align="left">
-                <Button id={row.id} variant="contained" color="secondary" onClick={handleUpdate}>
-                  Update
-                </Button>
-              </TableCell>
+              <UpdateScoreInput row_id={row.id} event_id={event_id} />
             </TableRow>
           ))}
         </TableBody>
