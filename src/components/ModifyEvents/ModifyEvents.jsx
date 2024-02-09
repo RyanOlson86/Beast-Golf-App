@@ -2,20 +2,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { Box, Grid, Typography, Button } from "@mui/material";
-import PlayerList from "../PlayerList/PlayerList";
 import AddPlayers from "../AddPlayers/AddPlayers";
 import PlayerList2 from "../PlayerList2/PlayerList2";
-
-// Mock data
-const mockData = [
-  {
-    id: 1,
-    player1: "Ryan Olson",
-    player2: "Josh Leary",
-    penalty: 1,
-    score: null,
-  },
-];
 
 function ModifyEvents() {
   const dispatch = useDispatch();
