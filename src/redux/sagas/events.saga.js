@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, take, takeLatest } from 'redux-saga/effects';
 
 // Function to GET events from server, then send to events reducer
 function* fetchEvents() {
@@ -11,6 +11,7 @@ function* fetchEvents() {
   }
 }
 
+// Function POST with new event then calls fetchEvents()
 function* addEvent(action) {
     try {
         yield axios.post('/api/events', action.payload);
@@ -20,9 +21,31 @@ function* addEvent(action) {
     }
 }
 
+// Function to Update event as complete, then call fetchEvents()
+function* completeEvent(action) {
+  try {
+      yield axios.put(`/api/events/${action.payload}`);
+      yield put({type: 'FETCH_EVENTS'})    
+  } catch (error) {
+      console.log('Events PUT request failed', error);
+  }
+}
+
+// Function to Delete event, then call fetchEvents()
+function* deleteEvent(action) {
+  try {
+      yield axios.delete(`/api/events/${action.payload}`);
+      yield put({type: 'FETCH_EVENTS'})    
+  } catch (error) {
+      console.log('Events DELETE request failed', error);
+  }
+}
+
 function* eventsSaga() {
   yield takeLatest('FETCH_EVENTS', fetchEvents);
   yield takeLatest('ADD_EVENT', addEvent);
+  yield takeLatest('COMPLETE_EVENT', completeEvent);
+  yield takeLatest('DELETE_EVENT', deleteEvent)
 }
 
 export default eventsSaga;
