@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min
 import { Box, Grid, Typography, Button } from "@mui/material";
 import PlayerList from "../PlayerList/PlayerList";
 import AddPlayers from "../AddPlayers/AddPlayers";
+import PlayerList2 from "../PlayerList2/PlayerList2";
 
 // Mock data
 const mockData = [
@@ -72,7 +73,8 @@ function ModifyEvents() {
       </Grid>
       {/* Add PlayerList component and pass event */}
       {user.access_level === 1 && <AddPlayers event_id={id} />}
-      <PlayerList teams={teams} />
+      {/* <PlayerList teams={teams} /> */}
+      <PlayerList2 teams={teams} event_id={id}/>
     </Box>
   );
 }
