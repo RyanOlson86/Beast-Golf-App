@@ -55,4 +55,26 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   }
 });
 
+// PUT route to update team score to DB --- ADMIN ONLY
+// rejectUnathenticated verifies user is logged in or else sends status 403
+router.put("/", rejectUnauthenticated, (req, res) => {
+  // If user is Admin (access_level 1) new INSERT query runs, else send forbidden
+  if (req.user.access_level === 1) {
+    const queryText = `UPDATE "event_scores" SET "score_final"=$1 WHERE "id"=$2;`;
+    const queryParams = [req.body.score, req.body.team_id];
+
+    pool
+      .query(queryText, queryParams)
+      .then((result) => {
+        console.log("req.body", req.body);
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log("Error in /teams POST : ", error);
+      });
+  } else {
+    res.sendStatus(403);
+  }
+});
+
 module.exports = router;

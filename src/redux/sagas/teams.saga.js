@@ -20,9 +20,19 @@ function* addPlayerToEvent(action) {
   }
 }
 
+function* updateScore(action) {
+  try {
+    yield axios.put(`/api/teams`, action.payload);
+    yield put({ type: 'FETCH_EVENT_DETAILS', payload: action.payload.event_id});
+  } catch (error) {
+    console.log('Teams post request failed', error);
+  }
+}
+
 function* teamsSaga() {
   yield takeLatest('FETCH_EVENT_DETAILS', fetchDetails);
-  yield takeLatest('ADD_PLAYER_TO_EVENT', addPlayerToEvent)
+  yield takeLatest('ADD_PLAYER_TO_EVENT', addPlayerToEvent);
+  yield takeLatest('UPDATE_SCORE', updateScore)
 }
 
 export default teamsSaga;

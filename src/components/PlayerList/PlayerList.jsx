@@ -48,7 +48,7 @@ function PlayerList({teams}) {
     <Box sx={{ height: 400, width: '100%', m: '20px' }}>
       <Box>
       <Typography variant='h5'>Teams:</Typography>
-      {user.access_level === 1 && <Button variant='contained' onClick={handleModify}>Modify</Button>}
+      {user.access_level === 1 && <Button variant='contained' size="small" sx={{ m: "10px" }} onClick={handleModify}>Modify</Button>}
       </Box>
       
       <DataGrid

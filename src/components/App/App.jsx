@@ -24,6 +24,7 @@ import './App.css';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import HomePage from '../HomePage/HomePage';
 import ModifyEvents from '../ModifyEvents/ModifyEvents';
+import TestGrid from '../TestGrid/TestGrid';
 
 function App() {
   const dispatch = useDispatch();
@@ -86,6 +87,14 @@ function App() {
             path="/events/:id"
           >
             <ModifyEvents />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows TestGrid else shows LoginPage
+            exact
+            path="/test/:pageId"
+          >
+            <TestGrid />
           </ProtectedRoute>
 
           <Route
