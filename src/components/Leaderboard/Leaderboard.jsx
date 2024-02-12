@@ -59,10 +59,15 @@ function Leaderboard() {
 
   return (
     <Box sx={{ height: 600, width: "100%", m: "20px" }}>
-      <Typography variant="h5">Upcoming Events:</Typography>
+      <Typography variant="h5">Leaderboard:</Typography>
       <DataGrid
         rows={players}
         columns={columns}
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'events_played', sort: 'desc' }],
+          },
+        }}
         onRowClick={(params) => {
           console.log(params);
           fetchDetails(params.id, params.row.full_name);

@@ -12,7 +12,7 @@ function LineChart({ playerDetails, name }) {
           labels: playerDetails.map((data) => data?.course), 
           datasets: [
             {
-              label: "hvjh",
+              label: "Score",
               data: playerDetails.map((data) => data.score_final),
               backgroundColor: [
                 "rgba(75,192,192,1)",
