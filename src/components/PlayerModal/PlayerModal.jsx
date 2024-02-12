@@ -1,5 +1,11 @@
 import React from 'react';
 import { Box, Button, Modal, Typography } from '@mui/material';
+import { useState } from 'react';
+import Chart from "chart.js/auto";
+import { CategoryScale } from "chart.js"
+import LineChart from '../LineChart/LineChart';
+
+Chart.register(CategoryScale);
 
 
 const style = {
@@ -7,14 +13,15 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: '60%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 
-export default function PlayerModal({handleClose, open, rowId, playerDetails}) {
+export default function PlayerModal({handleClose, open, playerDetails, name}) {
+
   return (
     <div>
       
@@ -24,14 +31,7 @@ export default function PlayerModal({handleClose, open, rowId, playerDetails}) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {playerDetails.map(course => (
-                <div>Score at {course.course}: {course.score_final}</div>
-                ))}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <LineChart playerDetails={playerDetails} name={name}/>
           <Button onClick={handleClose} variant='outlined'>Close</Button>
         </Box>
       </Modal>

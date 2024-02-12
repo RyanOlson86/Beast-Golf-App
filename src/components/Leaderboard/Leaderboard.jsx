@@ -29,10 +29,10 @@ const columns = [
 ];
 
 function Leaderboard() {
-  const events = useSelector((store) => store.events);
   const players = useSelector((store) => store.players);
   const [open, setOpen] = useState(false);
   const [playerDetails, setPlayerDetails] = useState([]);
+  const [playerName, setPlayerName] = useState("");
   const dispatch = useDispatch();
 
   const handleOpen = () => setOpen(true);
@@ -42,12 +42,12 @@ function Leaderboard() {
     dispatch({ type: "FETCH_ALL_PLAYERS" });
   }, []);
 
-  const fetchDetails = (id) => {
+  const fetchDetails = (id, name) => {
     axios
       .get(`api/details/${id}`)
       .then((response) => {
-        console.log(response.data)
         setPlayerDetails(response.data);
+        setPlayerName(name);
       })
       .catch((error) => {
         console.log("Error in fetchDetails", error);
@@ -58,18 +58,24 @@ function Leaderboard() {
   const [rowId, setRowId] = useState(0);
 
   return (
-    <Box sx={{ height: 400, width: "100%", m: "20px" }}>
-      <Typography variant="h5">Upcoming Events:</Typography>
+    <Box sx={{ height: 600, width: "100%", m: "20px" }}>
+      <Typography variant="h5">Leaderboard:</Typography>
       <DataGrid
         rows={players}
         columns={columns}
+        initialState={{
+          sorting: {
+            sortModel: [{ field: 'events_played', sort: 'desc' }],
+          },
+        }}
         onRowClick={(params) => {
-          fetchDetails(params.id)
-          setRowId(params.id);
+          console.log(params);
+          fetchDetails(params.id, params.row.full_name);
+          // setRowId(params.id);
           handleOpen();
         }}
       />
-      {<PlayerModal handleClose={handleClose} open={open} rowId={rowId} playerDetails={playerDetails}/>}
+      {<PlayerModal name={playerName} handleClose={handleClose} open={open} playerDetails={playerDetails} />}
     </Box>
   );
 }
