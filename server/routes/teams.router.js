@@ -19,7 +19,8 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
     LEFT JOIN event_scores ON event_scores.event_id=events.id
     LEFT JOIN players AS p1 ON p1.id=event_scores.player_one
     LEFT JOIN players AS p2 ON p2.id=event_scores.player_two
-    WHERE event_scores.event_id=$1;
+    WHERE event_scores.event_id=$1
+    ORDER BY id ASC;
     `;
 
   pool

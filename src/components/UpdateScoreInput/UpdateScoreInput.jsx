@@ -3,7 +3,7 @@ import { Button, TableCell, TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
 
 function UpdateScoreInput({row_id, event_id}) {
-  const [scoreInput, setScore] = useState(0);
+  const [scoreInput, setScore] = useState('');
   const dispatch = useDispatch();
 
   const handleUpdate = (event) => {
@@ -16,7 +16,7 @@ function UpdateScoreInput({row_id, event_id}) {
         score: scoreInput,
       },
     });
-    setScore(0);
+    setScore('');
   };
 
   return (

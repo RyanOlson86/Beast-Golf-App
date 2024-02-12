@@ -11,7 +11,8 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const eventsRouter = require('./routes/events.router');
 const teamsRouter = require('./routes/teams.router');
-const playersRouter = require('./routes/players.router')
+const playersRouter = require('./routes/players.router');
+const detailsRouter = require('./routes/details.router')
 
 // Express Middleware
 app.use(express.json());
@@ -30,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/events', eventsRouter);
 app.use('/api/teams', teamsRouter);
 app.use('/api/players', playersRouter);
+app.use('/api/details', detailsRouter);
 
 // Listen Server & Port
 app.listen(PORT, () => {

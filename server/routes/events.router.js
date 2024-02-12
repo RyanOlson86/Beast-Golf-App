@@ -2,6 +2,7 @@ const express = require("express");
 const { rejectUnauthenticated } = require("../modules/authentication-middleware");
 const pool = require("../modules/pool");
 const router = express.Router();
+const calcWinner = require('../utils/calcWinner')
 
 // GET route to retrieve existing events from DB
 // rejectUnathenticated verifies user is logged in or else sends status 403
@@ -41,22 +42,82 @@ router.post("/", rejectUnauthenticated, (req, res) => {
   }
 });
 
-// PUT route to update event in DB as complete --- ADMIN ONLY
-// rejectUnathenticated verifies user is logged in or else sends status 403
-router.put("/:id", rejectUnauthenticated, (req, res) => {
+/* --- ADMIN ONLY ---
+PUT route to update event in DB as complete
+    - First, SELECT scores for event from DB
+    - Second, use SELECT results to run calcWinner()
+    - Use return from calcWinner to:
+        - UPDATE "players" with win for how many points were awarded
+    - UPDATE all players that played with +1 events_played
+    - UPDATE event completed with true
+rejectUnathenticated verifies user is logged in or else sends status 403
+*/
+router.put("/:id", rejectUnauthenticated, async (req, res) => {
   // If user is Admin (access_level 1) new INSERT query runs, else send forbidden
   if (req.user.access_level === 1) {
-    const queryText = `UPDATE "events" SET "complete"=true WHERE "id"=$1;`;
+    let connection;
 
-    pool
-      .query(queryText, [req.params.id])
-      .then((result) => {
-        console.log("req.body", req.body);
-        res.sendStatus(200);
-      })
-      .catch((error) => {
-        console.log("Error in /events PUT : ", error);
-      });
+    try {
+      const event_id = req.params.id;
+
+      // establish connection to DB
+      connection = await pool.connect();
+
+      // Begin SQL transaction
+      connection.query("BEGIN;");
+
+      // Query to retrieve scores for event from DB
+      const getText = `
+        SELECT 
+            event_scores.id AS id, 
+            p1.id AS player1, 
+            p2.id AS player2, 
+            event_scores.penalty, 
+            event_scores.score_final AS score
+        FROM "events"
+        LEFT JOIN event_scores ON event_scores.event_id=events.id
+        LEFT JOIN players AS p1 ON p1.id=event_scores.player_one
+        LEFT JOIN players AS p2 ON p2.id=event_scores.player_two
+        WHERE event_scores.event_id=$1;`;
+
+      const getResponse = await connection.query(getText, [event_id]);
+
+      // call calcWinner to retrieve winning team(s) and points
+      const winner = calcWinner(getResponse.rows);
+      const points = winner.points;
+      const teams = winner.teams;
+
+      if (teams[0].score === 0) {
+        throw new Error("Cannot have score of zero");
+      }
+
+      // Update wins
+      const winsText = `UPDATE "players" SET wins = wins + $1 WHERE id=$2;`;
+      for(let team of teams) {
+        await connection.query(winsText, [points, team.player1])
+        await connection.query(winsText, [points, team.player2])
+      }
+
+      // Update events
+      const eventsText = `UPDATE "players" SET events_played = events_played + 1 WHERE id=$1;`;
+      for(let team of getResponse.rows) {
+        await connection.query(eventsText, [team.player1])
+        await connection.query(eventsText, [team.player2])
+      }
+
+      const completeText = `UPDATE "events" SET "complete"=true WHERE "id"=$1;`;
+      await connection.query(completeText, [event_id]);
+
+      connection.query("COMMIT;");
+
+      res.sendStatus(200);
+    } catch (error) {
+      console.log("Error in /test PUT", error);
+      connection.query("ROLLBACK;");
+      res.sendStatus(500);
+    } finally {
+      connection.release();
+    }
   } else {
     res.sendStatus(403);
   }

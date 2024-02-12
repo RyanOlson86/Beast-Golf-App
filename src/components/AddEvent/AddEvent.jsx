@@ -21,6 +21,12 @@ function AddEvent() {
     setDate('');
   }
 
+  // Style for TextField
+  const myStyle = {
+    backgroundColor: 'white',
+    borderRadius: '5px',
+  }
+
   // Function to Handle Add
   const handleAdd = () => {
     console.log(courseInput)
@@ -41,7 +47,11 @@ function AddEvent() {
       component="form"
       sx={{
         "& > :not(style)": { m: 1, width: "20ch" },
-        m: "20px",
+        m: "5%",
+        width: '90%',
+        bgcolor: '#d1d1d1',
+        borderRadius: '5px',
+        border: 'solid 1px grey'
       }}
       noValidate
       autoComplete="off"
@@ -52,6 +62,7 @@ function AddEvent() {
         label="Course"
         variant="outlined"
         size="small"
+        sx={myStyle}
         value={courseInput}
         onChange={(event) => setCourse(event.target.value)}
       />
@@ -60,6 +71,7 @@ function AddEvent() {
         label="Format"
         variant="outlined"
         size="small"
+        sx={myStyle}
         value={formatInput}
         onChange={(event) => setFormat(event.target.value)}
       />
@@ -68,6 +80,7 @@ function AddEvent() {
         label="Tee Box"
         variant="outlined"
         size="small"
+        sx={myStyle}
         value={teeboxInput}
         onChange={(event) => setTeebox(event.target.value)}
       />
@@ -76,6 +89,7 @@ function AddEvent() {
         label="Date"
         variant="outlined"
         size="small"
+        sx={myStyle}
         value={dateInput}
         onChange={(event) => setDate(event.target.value)}
       />
