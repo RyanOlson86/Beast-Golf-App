@@ -7,7 +7,7 @@ const router = express.Router();
 // rejectUnathenticated verifies user is logged in or else sends status 403
 router.get("/", rejectUnauthenticated, (req, res) => {
 
-  const queryText = `SELECT * FROM "players";`;
+  const queryText = `SELECT * FROM "players" ORDER BY "full_name" ASC;`;
 
   pool
     .query(queryText)

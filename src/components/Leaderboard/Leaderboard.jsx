@@ -58,7 +58,7 @@ function Leaderboard() {
   const [rowId, setRowId] = useState(0);
 
   return (
-    <Box sx={{ height: 600, width: "100%", m: "20px" }}>
+    <Box sx={{ height: 600, width: "90%", m: "5%" }}>
       <Typography variant="h5">Leaderboard:</Typography>
       <DataGrid
         rows={players}

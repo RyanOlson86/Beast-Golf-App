@@ -56,7 +56,7 @@ function UpcomingEvents() {
   };
 
   return (
-    <Box sx={{ height: 400, width: "100%", m: "20px" }}>
+    <Box sx={{ height: 400, width: "90%", m: "5%" }}>
       <Typography variant="h5">Upcoming Events:</Typography>
       {user.access_level === 1 && (
         <Button variant="contained" size="small" sx={{ m: "10px" }} onClick={handleAddPlayers}>
