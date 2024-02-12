@@ -5,6 +5,7 @@ import { Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import PlayerModal from "../PlayerModal/PlayerModal";
+import axios from "axios";
 
 const columns = [
   {
@@ -31,16 +32,27 @@ function Leaderboard() {
   const events = useSelector((store) => store.events);
   const players = useSelector((store) => store.players);
   const [open, setOpen] = useState(false);
+  const [playerDetails, setPlayerDetails] = useState([]);
+  const dispatch = useDispatch();
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_PLAYERS" });
+  }, []);
 
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  useEffect(()=>{
-    dispatch({type: 'FETCH_ALL_PLAYERS'})
-  }, [])
+  const fetchDetails = (id) => {
+    axios
+      .get(`api/details/${id}`)
+      .then((response) => {
+        console.log(response.data)
+        setPlayerDetails(response.data);
+      })
+      .catch((error) => {
+        console.log("Error in fetchDetails", error);
+      });
+  };
 
   // Local state that is updated when a row is clicked on event list
   const [rowId, setRowId] = useState(0);
@@ -51,13 +63,13 @@ function Leaderboard() {
       <DataGrid
         rows={players}
         columns={columns}
-        onRowClick={(params)=> {
-          setRowId(params.id) 
-          open ? setOpen(false) : setOpen(true)
+        onRowClick={(params) => {
+          fetchDetails(params.id)
+          setRowId(params.id);
+          handleOpen();
         }}
-
       />
-      {<PlayerModal handleClose={handleClose} open={open} rowId={rowId}/>}
+      {<PlayerModal handleClose={handleClose} open={open} rowId={rowId} playerDetails={playerDetails}/>}
     </Box>
   );
 }

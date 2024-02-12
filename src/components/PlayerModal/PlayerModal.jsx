@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
 import { Box, Button, Modal, Typography } from '@mui/material';
+
 
 const style = {
   position: 'absolute',
@@ -14,23 +14,20 @@ const style = {
   p: 4,
 };
 
-export default function PlayerModal({handleClose, open, rowId}) {
-//   const [open, setOpen] = useState(true);
-//   const handleOpen = () => setOpen(true);
-//   const handleClose = () => setOpen(false);
-
+export default function PlayerModal({handleClose, open, rowId, playerDetails}) {
   return (
     <div>
       
       <Modal
         open={open}
-        // onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {rowId}
+            {playerDetails.map(course => (
+                <div>Score at {course.course}: {course.score_final}</div>
+                ))}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
