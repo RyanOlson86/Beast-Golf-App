@@ -25,6 +25,9 @@ import Leaderboard from '../Leaderboard/Leaderboard';
 import HomePage from '../HomePage/HomePage';
 import ModifyEvents from '../ModifyEvents/ModifyEvents';
 import TestGrid from '../TestGrid/TestGrid';
+import myTheme from '../Theme/Theme';
+import { ThemeProvider } from '@mui/material';
+import AdminPage from '../AdminPage/AdminPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,11 +36,13 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: "FETCH_ALL_PLAYERS" });
     dispatch({type: 'FETCH_EVENTS'});
   }, [dispatch]);
 
   return (
-    <Router>
+    // <ThemeProvider theme={myTheme}>
+      <Router>
       <div>
         <Nav />
         <Switch>
@@ -87,6 +92,14 @@ function App() {
             path="/events/:id"
           >
             <ModifyEvents />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Leaderboard else shows LoginPage
+            exact
+            path="/admin"
+          >
+            {user.access_level === 1 ? <AdminPage /> : <Redirect to='/home'/>}
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -147,6 +160,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    // </ThemeProvider>
   );
 }
 

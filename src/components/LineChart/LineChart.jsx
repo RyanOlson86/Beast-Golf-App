@@ -15,14 +15,9 @@ function LineChart({ playerDetails, name }) {
               label: "Score",
               data: playerDetails.map((data) => data.score_final),
               backgroundColor: [
-                "rgba(75,192,192,1)",
-                "#ecf0f1",
-                "#50AF95",
-                "#f3ba2f",
-                "#2a71d0",
-                "rebeccapurple"
+                '#252df5'
               ],
-              borderColor: "black",
+              borderColor: "#252df5",
               borderWidth: 2
             }
           ]
