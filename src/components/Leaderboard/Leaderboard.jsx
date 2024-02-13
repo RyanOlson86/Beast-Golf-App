@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 import PlayerModal from "../PlayerModal/PlayerModal";
 import axios from "axios";
 
@@ -29,8 +28,8 @@ const columns = [
 ];
 
 function Leaderboard() {
-  const players = useSelector((store) => store.players);
-  const user = useSelector((store) => store.user);
+  const players = useSelector((store) => store?.players);
+  const user = useSelector((store) => store?.user);
 
   // Local State for Modal control
   const [open, setOpen] = useState(false);
@@ -43,15 +42,6 @@ function Leaderboard() {
 
   // Local State for UserDetails
   const userDetails = players.filter(player => player.id === user.player_id)
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch({ type: "FETCH_ALL_PLAYERS" });
-    if (user.player_id != null) {
-      fetchDetails(user.player_id, userDetails[0].full_name);
-    }
-  }, []);
 
   const fetchDetails = (id, name) => {
     axios
@@ -71,8 +61,8 @@ function Leaderboard() {
     <Box sx={{ height: 600, width: "90%", m: "5%" }}>
       {user.player_id && (
         <Box sx={{marginBottom: '5%'}}>
-          <Typography variant="h4" >Welcome {userDetails[0].full_name}!</Typography>
-          <Typography variant="h6" >You have played <b>{userDetails[0].events_played}</b> events with <b>{userDetails[0].wins}</b> wins!</Typography>
+          <Typography variant="h4" >Welcome {userDetails[0]?.full_name}!</Typography>
+          <Typography variant="h6" >You have played <b>{userDetails[0]?.events_played}</b> events with <b>{userDetails[0]?.wins}</b> wins!</Typography>
         </Box>
       )}
       <Typography variant="h5">Leaderboard:</Typography>
@@ -87,7 +77,6 @@ function Leaderboard() {
         onRowClick={(params) => {
           console.log(params);
           fetchDetails(params.id, params.row.full_name);
-          // setRowId(params.id);
           handleOpen();
         }}
       />
