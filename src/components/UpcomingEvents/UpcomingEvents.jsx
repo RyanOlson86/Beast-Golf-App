@@ -4,6 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import Swal from "sweetalert2";
 
 const columns = [
   {
@@ -34,7 +35,7 @@ const columns = [
   {
     field: "complete",
     headerName: "Event Complete",
-    type: 'boolean',
+    type: "boolean",
     width: 150,
   },
 ];
@@ -52,8 +53,26 @@ function UpcomingEvents() {
     history.push(`/events/${rowId}`);
   };
 
+  // Handle Delete function will fire Sweetalert to allow use to confirm deletion. Cancel will not save any changes
   const handleDelete = () => {
-    dispatch({ type: "DELETE_EVENT", payload: rowId });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch({ type: "DELETE_EVENT", payload: rowId });
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
@@ -81,17 +100,15 @@ function UpcomingEvents() {
           },
           columns: {
             columnVisibilityModel: {
-              complete: false
-            }
-          }
+              complete: false,
+            },
+          },
         }}
-        filterModel= {{
-          items: [{ field: 'complete', operator: 'is', value: 'false'}]
+        filterModel={{
+          items: [{ field: "complete", operator: "is", value: "false" }],
         }}
         pageSizeOptions={[5]}
         onRowClick={(params) => setRowId(params.id)}
-        // checkboxSelection
-        // disableRowSelectionOnClick
       />
     </Box>
   );

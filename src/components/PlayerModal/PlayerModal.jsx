@@ -32,7 +32,7 @@ export default function PlayerModal({handleClose, open, playerDetails, name}) {
       >
         <Box sx={style}>
           <LineChart playerDetails={playerDetails} name={name}/>
-          <Button onClick={handleClose} variant='outlined'>Close</Button>
+          <Button onClick={handleClose} variant='contained' >Close</Button>
         </Box>
       </Modal>
     </div>
