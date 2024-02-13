@@ -25,8 +25,6 @@ import Leaderboard from '../Leaderboard/Leaderboard';
 import HomePage from '../HomePage/HomePage';
 import ModifyEvents from '../ModifyEvents/ModifyEvents';
 import TestGrid from '../TestGrid/TestGrid';
-import myTheme from '../Theme/Theme';
-import { ThemeProvider } from '@mui/material';
 import AdminPage from '../AdminPage/AdminPage';
 
 function App() {
@@ -41,7 +39,6 @@ function App() {
   }, [dispatch]);
 
   return (
-    // <ThemeProvider theme={myTheme}>
       <Router>
       <div>
         <Nav />
@@ -160,7 +157,6 @@ function App() {
         <Footer />
       </div>
     </Router>
-    // </ThemeProvider>
   );
 }
 
