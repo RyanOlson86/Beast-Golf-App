@@ -27,6 +27,7 @@ import ModifyEvents from '../ModifyEvents/ModifyEvents';
 import TestGrid from '../TestGrid/TestGrid';
 import myTheme from '../Theme/Theme';
 import { ThemeProvider } from '@mui/material';
+import AdminPage from '../AdminPage/AdminPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -91,6 +92,14 @@ function App() {
             path="/events/:id"
           >
             <ModifyEvents />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Leaderboard else shows LoginPage
+            exact
+            path="/admin"
+          >
+            {user.access_level === 1 ? <AdminPage /> : <Redirect to='/home'/>}
           </ProtectedRoute>
 
           <ProtectedRoute
