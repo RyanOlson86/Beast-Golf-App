@@ -40,7 +40,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <ThemeProvider theme={myTheme}>
+    // <ThemeProvider theme={myTheme}>
       <Router>
       <div>
         <Nav />
@@ -151,7 +151,7 @@ function App() {
         <Footer />
       </div>
     </Router>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 }
 

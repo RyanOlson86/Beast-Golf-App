@@ -1,5 +1,4 @@
-import React from 'react';
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material';
 
 const myTheme = createTheme({
   palette: {
