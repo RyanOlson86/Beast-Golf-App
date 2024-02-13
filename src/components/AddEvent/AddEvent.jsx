@@ -93,6 +93,7 @@ function AddEvent() {
         value={dateInput}
         onChange={(event) => setDate(event.target.value)}
       />
+      
       <Button variant="contained" onClick={handleAdd}>ADD</Button>
     </Box>
   );

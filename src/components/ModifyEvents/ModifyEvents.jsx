@@ -4,10 +4,11 @@ import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min
 import { Box, Grid, Typography, Button } from "@mui/material";
 import AddPlayers from "../AddPlayers/AddPlayers";
 import PlayerList2 from "../PlayerList2/PlayerList2";
+import Swal from "sweetalert2";
 
 function ModifyEvents() {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
   // Get event ID from useParams
   const { id } = useParams();
 
@@ -28,13 +29,31 @@ function ModifyEvents() {
   const eventDetails = eventArray[0];
 
   const handleComplete = () => {
-    dispatch({ type: "COMPLETE_EVENT", payload: id });
-    history.push('/events');
+    Swal.fire({
+      title: "Are you sure you want to complete this event?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, complete event!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch({ type: "COMPLETE_EVENT", payload: id });
+        dispatch({ type: "FETCH_ALL_PLAYERS"});
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+        history.push("/events");
+      }
+    });
   };
 
   return (
     <Box sx={{ flexGrow: 1, textAlign: "center" }}>
-      <Grid container spacing={1} sx={{justifyContent: 'center'}}>
+      <Grid container spacing={1} sx={{ justifyContent: "center" }}>
         <Grid item xs={2}>
           <Typography variant="h6">Course:</Typography>
           <Typography variant="h6">{eventDetails?.course}</Typography>
@@ -62,7 +81,7 @@ function ModifyEvents() {
       {/* Add PlayerList component and pass event */}
       {user.access_level === 1 && <AddPlayers event_id={id} />}
       {/* <PlayerList teams={teams} /> */}
-      <PlayerList2 teams={teams} event_id={id}/>
+      <PlayerList2 teams={teams} event_id={id} />
     </Box>
   );
 }
