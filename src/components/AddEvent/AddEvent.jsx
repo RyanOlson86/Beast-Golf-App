@@ -6,13 +6,14 @@ import { useDispatch } from "react-redux";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers";
+import dayjs from 'dayjs'
 
 function AddEvent() {
   // Using hooks create local state for form inputs
   const [courseInput, setCourse] = useState("");
   const [formatInput, setFormat] = useState("");
   const [teeboxInput, setTeebox] = useState("");
-  const [dateInput, setDate] = useState("");
+  const [dateInput, setDate] = useState(dayjs);
 
   const dispatch = useDispatch();
 
@@ -21,7 +22,7 @@ function AddEvent() {
     setCourse("");
     setFormat("");
     setTeebox("");
-    setDate("");
+    setDate();
   };
 
   // Style for TextField
@@ -74,6 +75,7 @@ function AddEvent() {
           id="course"
           label="Course"
           variant="outlined"
+          autoComplete="true"
           sx={myStyle}
           value={courseInput}
           onChange={(event) => setCourse(event.target.value)}
