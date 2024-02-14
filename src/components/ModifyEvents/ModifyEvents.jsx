@@ -53,46 +53,21 @@ function ModifyEvents() {
 
   return (
     <Box sx={{ flexGrow: 1, textAlign: "center" }}>
-      {/* <Grid container spacing={1} sx={{ justifyContent: "center" }}>
-        <Grid item xs={2}>
-          <Typography variant="h6">Course:</Typography>
-          <Typography variant="h6">{eventDetails?.course}</Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="h6">Format:</Typography>
-          <Typography variant="h6">{eventDetails?.format}</Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="h6">Tee Box:</Typography>
-          <Typography variant="h6">{eventDetails?.teebox}</Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="h6">Date:</Typography>
-          <Typography variant="h6">{new Date(eventDetails?.date).toLocaleDateString()}</Typography>
-        </Grid>
-        <Grid item xs={2}>
-          {user.access_level === 1 && (
-            <Button variant="contained" color="secondary" size="small" sx={{ m: "10px" }} onClick={handleComplete}>
-              Mark Event Complete
-            </Button>
-          )}
-        </Grid>
-      </Grid> */}
       <Box>
         <Typography variant="h4">{eventDetails?.course}</Typography>
         <Typography variant="h5">{new Date(eventDetails?.date).toLocaleDateString()}</Typography>
         <Typography variant="h6">{eventDetails?.format}</Typography>
         <Typography variant="h6">{eventDetails?.teebox} Tees</Typography>
-        {user.access_level === 1 && (
+        {user.access_level === 1 && eventDetails.complete == false && (
             <Button variant="contained" color="secondary" size="small" sx={{ m: "10px" }} onClick={handleComplete}>
               Mark Event Complete
             </Button>
           )}
       </Box>
       {/* Add PlayerList component and pass event */}
-      {user.access_level === 1 && <AddPlayers event_id={id} />}
+      {user.access_level === 1 && eventDetails.complete == false && <AddPlayers event_id={id} />}
       {/* <PlayerList teams={teams} /> */}
-      <PlayerList2 teams={teams} event_id={id} />
+      <PlayerList2 teams={teams} event_id={id} complete={eventDetails?.complete}/>
     </Box>
   );
 }
