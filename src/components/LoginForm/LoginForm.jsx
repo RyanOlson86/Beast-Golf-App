@@ -1,65 +1,94 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
+import { Card, TextField, Typography, Box, Button } from "@mui/material";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const errors = useSelector(store => store.errors);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+
+  const myStyle = {
+    backgroundColor: "white",
+    borderRadius: "5px",
+  };
 
   const login = (event) => {
     event.preventDefault();
 
     if (username && password) {
       dispatch({
-        type: 'LOGIN',
+        type: "LOGIN",
         payload: {
           username: username,
           password: password,
         },
       });
     } else {
-      dispatch({ type: 'LOGIN_INPUT_ERROR' });
+      dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
   }; // end login
 
   return (
-    <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
+    <Box
+      component="form"
+      sx={{
+        bgcolor: "#d1d1d1",
+        borderRadius: "5px",
+        border: "solid 1px grey",
+        width: "fit-content",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        p: "1%",
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <Typography variant="h5" sx={{ m: 1 }}>
+        Login:
+      </Typography>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
-      </div>
-    </form>
+      <Box
+        sx={{
+          "& > :not(style)": { m: 1, width: "25ch" },
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+        }}
+      >
+        <TextField
+          id="username"
+          label="Username"
+          variant="outlined"
+          type="text"
+          required
+          autoComplete="true"
+          sx={myStyle}
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+        />
+        <TextField
+          id="password"
+          label="Password"
+          type="text"
+          required
+          autoComplete="true"
+          variant="outlined"
+          sx={myStyle}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </Box>
+      <Button variant="contained" size="large" onClick={login}>
+        Login
+      </Button>
+    </Box>
   );
 }
 
