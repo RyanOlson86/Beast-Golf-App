@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { TextField, Typography, Box, Button } from "@mui/material";
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+
+  const myStyle = {
+    backgroundColor: "white",
+    borderRadius: "5px",
+  };
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -20,41 +26,97 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
-    <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+    <Box
+      component="form"
+      sx={{
+        bgcolor: "#d1d1d1",
+        borderRadius: "5px",
+        border: "solid 1px grey",
+        width: "fit-content",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        p: "1%",
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <Typography variant="h5" sx={{ m: 1 }}>
+        Register User:
+      </Typography>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={username}
-            required
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            required
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
-      </div>
-    </form>
+      <Box
+        sx={{
+          "& > :not(style)": { m: 1, width: "25ch" },
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "wrap",
+        }}
+      >
+        <TextField
+          id="username"
+          label="Username"
+          variant="outlined"
+          type="text"
+          required
+          sx={myStyle}
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+        />
+        <TextField
+          id="password"
+          label="Password"
+          type="password"
+          required
+          variant="outlined"
+          sx={myStyle}
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+      </Box>
+      <Button variant="contained" size="large" onClick={registerUser}>
+        Register
+      </Button>
+    </Box>
+    // <form className="formPanel" onSubmit={registerUser}>
+    //   <h2>Register User</h2>
+      // {errors.registrationMessage && (
+      //   <h3 className="alert" role="alert">
+      //     {errors.registrationMessage}
+      //   </h3>
+      // )}
+    //   <div>
+    //     <label htmlFor="username">
+    //       Username:
+    //       <input
+    //         type="text"
+    //         name="username"
+    //         value={username}
+    //         required
+    //         onChange={(event) => setUsername(event.target.value)}
+    //       />
+    //     </label>
+    //   </div>
+    //   <div>
+    //     <label htmlFor="password">
+    //       Password:
+    //       <input
+    //         type="password"
+    //         name="password"
+    //         value={password}
+    //         required
+    //         onChange={(event) => setPassword(event.target.value)}
+    //       />
+    //     </label>
+    //   </div>
+    //   <div>
+    //     <input className="btn" type="submit" name="submit" value="Register" />
+    //   </div>
+    // </form>
   );
 }
 

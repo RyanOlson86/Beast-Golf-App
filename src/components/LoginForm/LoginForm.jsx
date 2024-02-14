@@ -1,4 +1,4 @@
-import { Card, TextField, Typography, Box, Button } from "@mui/material";
+import { TextField, Typography, Box, Button } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -76,9 +76,9 @@ function LoginForm() {
         <TextField
           id="password"
           label="Password"
-          type="text"
+          type="password"
+          autoComplete="current-password"
           required
-          autoComplete="true"
           variant="outlined"
           sx={myStyle}
           value={password}
