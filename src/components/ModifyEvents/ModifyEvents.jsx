@@ -40,7 +40,7 @@ function ModifyEvents() {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch({ type: "COMPLETE_EVENT", payload: id });
-        dispatch({ type: "FETCH_ALL_PLAYERS"});
+        dispatch({ type: "FETCH_ALL_PLAYERS" });
         Swal.fire({
           title: "Deleted!",
           text: "Your file has been deleted.",
@@ -53,7 +53,7 @@ function ModifyEvents() {
 
   return (
     <Box sx={{ flexGrow: 1, textAlign: "center" }}>
-      <Grid container spacing={1} sx={{ justifyContent: "center" }}>
+      {/* <Grid container spacing={1} sx={{ justifyContent: "center" }}>
         <Grid item xs={2}>
           <Typography variant="h6">Course:</Typography>
           <Typography variant="h6">{eventDetails?.course}</Typography>
@@ -77,7 +77,18 @@ function ModifyEvents() {
             </Button>
           )}
         </Grid>
-      </Grid>
+      </Grid> */}
+      <Box>
+        <Typography variant="h4">{eventDetails?.course}</Typography>
+        <Typography variant="h5">{new Date(eventDetails?.date).toLocaleDateString()}</Typography>
+        <Typography variant="h6">{eventDetails?.format}</Typography>
+        <Typography variant="h6">{eventDetails?.teebox} Tees</Typography>
+        {user.access_level === 1 && (
+            <Button variant="contained" color="secondary" size="small" sx={{ m: "10px" }} onClick={handleComplete}>
+              Mark Event Complete
+            </Button>
+          )}
+      </Box>
       {/* Add PlayerList component and pass event */}
       {user.access_level === 1 && <AddPlayers event_id={id} />}
       {/* <PlayerList teams={teams} /> */}
