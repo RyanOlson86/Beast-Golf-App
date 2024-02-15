@@ -2,6 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import genStyle from "../Styles/Styles";
 
 const itemData = [
   {
@@ -38,14 +39,16 @@ const itemData = [
 
 function MyImageList() {
   return (
-    <Box sx={{ width: "80%", height: 600, overflowY: "scroll" }}>
-      <ImageList variant="masonry" cols={3} gap={8}>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img}>
-            <img src={`${item.img}?w=248&fit=crop&auto=format`} alt={item.title} loading="lazy" />
-          </ImageListItem>
-        ))}
-      </ImageList>
+    <Box sx={{...genStyle.box, width: '75%'}}>
+      <Box sx={{ width: "100%", height: 800, overflowY: "scroll" }}>
+        <ImageList variant="masonry" cols={3} gap={10}>
+          {itemData.map((item) => (
+            <ImageListItem key={item.img}>
+              <img src={`${item.img}?w=248&fit=crop&auto=format`} alt={item.title} loading="lazy" />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </Box>
     </Box>
   );
 }
