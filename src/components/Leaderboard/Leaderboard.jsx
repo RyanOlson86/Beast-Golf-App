@@ -5,6 +5,7 @@ import { Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import PlayerModal from "../PlayerModal/PlayerModal";
 import axios from "axios";
+import genStyle from "../Styles/Styles";
 
 const columns = [
   {
@@ -58,7 +59,7 @@ function Leaderboard() {
   };
 
   return (
-    <Box sx={{ height: 600, width: "90%", m: "5%" }}>
+    <Box sx={{ ...genStyle.box, height: 600, width: "90%", m: "5%", paddingBottom: '205px'}}>
       {user.player_id && (
         <Box sx={{marginBottom: '5%'}}>
           <Typography variant="h4" >Welcome {userDetails[0]?.full_name}!</Typography>

@@ -5,6 +5,7 @@ import { Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Swal from "sweetalert2";
+import genStyle from "../Styles/Styles";
 
 const columns = [
   {
@@ -76,7 +77,7 @@ function UpcomingEvents() {
   };
 
   return (
-    <Box sx={{ height: 400, width: "90%", m: "5%" }}>
+    <Box sx={{...genStyle.box,  height: 400, m: '5%' , paddingBottom: '105px'}}>
       <Typography variant="h5">Upcoming Events:</Typography>
       {user.access_level === 1 && (
         <Button variant="contained" size="small" sx={{ m: "10px" }} onClick={handleAddPlayers}>
