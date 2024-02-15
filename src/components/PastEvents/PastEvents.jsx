@@ -37,13 +37,19 @@ const columns = [
 
 function PastEvents() {
   const events = useSelector((store) => store.events);
+  const history = useHistory()
 
   // Local state that is updated when a row is clicked on event list
   const [rowId, setRowId] = useState(0);
 
+  const handleView = () => {
+    history.push(`/events/${rowId}`);
+  }
+
   return (
     <Box sx={{ height: 400, width: "90%", m: "5%", marginTop: '10%' }}>
       <Typography variant="h5">Past Events:</Typography>
+      <Button variant="contained" size="small" sx={{ m: "10px" }} onClick={handleView}>View Event</Button>
       <DataGrid
         rows={events}
         columns={columns}

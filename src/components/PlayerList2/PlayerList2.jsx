@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import UpdateScoreInput from "../UpdateScoreInput/UpdateScoreInput";
 
-function PlayerList2({ teams, event_id }) {
+function PlayerList2({ teams, event_id, complete}) {
 
   return (
     <TableContainer component={Paper} sx={{ width: '90%', m: '5%', border: 'solid 1px grey', borderRadius: '5px' }}>
@@ -21,7 +21,7 @@ function PlayerList2({ teams, event_id }) {
             <TableCell align="left">Player 2</TableCell>
             <TableCell align="center">Penalty</TableCell>
             <TableCell align="center">Score</TableCell>
-            <TableCell align="center">Update Score</TableCell>
+            {complete ==false && <TableCell align="center">Update Score</TableCell>}
             <TableCell align="left"></TableCell>
           </TableRow>
         </TableHead>
@@ -34,7 +34,7 @@ function PlayerList2({ teams, event_id }) {
               <TableCell align="left">{row.player2}</TableCell>
               <TableCell align="center">{row.penalty}</TableCell>
               <TableCell align="center">{row.score}</TableCell>
-              <UpdateScoreInput row_id={row.id} event_id={event_id} />
+              {complete ==false && <UpdateScoreInput row_id={row.id} event_id={event_id} />}
             </TableRow>
           ))}
         </TableBody>

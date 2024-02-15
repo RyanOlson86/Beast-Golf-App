@@ -5,7 +5,7 @@
   align-items: center;
 
   margin: 0 0 30px;
-  background-color: rgb(37, 45, 245);
+  background-color: #252df5;
   overflow: hidden;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .nav img {
-  max-height: 70px;
+  max-height: 90px;
   margin-left: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -33,9 +33,9 @@
   color: #f2f2f2;
   background-color: rgb(37, 45, 245);
   text-align: center;
-  padding: 10px 10px;
+  padding: 15px 15px;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 18px;
 
   /* these last two make the logout button in
   the nav bar look like another link */

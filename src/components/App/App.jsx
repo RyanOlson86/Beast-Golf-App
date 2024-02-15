@@ -25,6 +25,7 @@ import Leaderboard from '../Leaderboard/Leaderboard';
 import HomePage from '../HomePage/HomePage';
 import ModifyEvents from '../ModifyEvents/ModifyEvents';
 import TestGrid from '../TestGrid/TestGrid';
+import AdminPage from '../AdminPage/AdminPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,11 +34,12 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: "FETCH_ALL_PLAYERS" });
     dispatch({type: 'FETCH_EVENTS'});
   }, [dispatch]);
 
   return (
-    <Router>
+      <Router>
       <div>
         <Nav />
         <Switch>
@@ -57,13 +59,14 @@ function App() {
             Visiting localhost:5173/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:5173/user */}
-          <ProtectedRoute
+            // ! Can Delete route below
+          {/* <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
             path="/user"
           >
             <UserPage />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
 
           <ProtectedRoute
             // logged in shows EventsPage else shows LoginPage
@@ -90,6 +93,15 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            // logged in shows Leaderboard else shows LoginPage
+            exact
+            path="/admin"
+          >
+            {user.access_level === 1 ? <AdminPage /> : <Redirect to='/home'/>}
+          </ProtectedRoute>
+
+          // TODO: Delete test page when done
+          <ProtectedRoute
             // logged in shows TestGrid else shows LoginPage
             exact
             path="/test/:pageId"
@@ -103,7 +115,7 @@ function App() {
           >
             {user.id ?
               // If the user is already logged in, 
-              // redirect to the /user page
+              // redirect to the /home page
               <Redirect to="/home" />
               :
               // Otherwise, show the login page
@@ -117,8 +129,8 @@ function App() {
           >
             {user.id ?
               // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
+              // redirect them to the /home page
+              <Redirect to="/home" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
