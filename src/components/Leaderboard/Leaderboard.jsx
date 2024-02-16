@@ -42,13 +42,13 @@ function Leaderboard() {
   const [playerName, setPlayerName] = useState("");
 
   // Local State for UserDetails
-  const userDetails = players.filter(player => player.id === user.player_id)
+  const userDetails = players.filter((player) => player.id === user.player_id);
 
   const fetchDetails = (id, name) => {
     axios
       .get(`api/details/${id}`)
       .then((response) => {
-        console.log('details response', response.data)
+        console.log("details response", response.data);
         setPlayerDetails(response.data);
         if (name != undefined) {
           setPlayerName(name);
@@ -60,11 +60,13 @@ function Leaderboard() {
   };
 
   return (
-    <Box sx={{ ...genStyle.box, height: 600, width: "90%", m: "5%", paddingBottom: '205px'}}>
+    <Box sx={{ ...genStyle.box, height: 600, width: "90%", m: "5%", paddingBottom: "205px" }}>
       {user.player_id && (
-        <Box sx={{marginBottom: '5%'}}>
-          <Typography variant="h4" >Welcome {userDetails[0]?.full_name}!</Typography>
-          <Typography variant="h6" >You have played <b>{userDetails[0]?.events_played}</b> events with <b>{userDetails[0]?.wins}</b> wins!</Typography>
+        <Box sx={{ marginBottom: "5%" }}>
+          <Typography variant="h4">Welcome {userDetails[0]?.full_name}!</Typography>
+          <Typography variant="h6">
+            You have played <b>{userDetails[0]?.events_played}</b> events with <b>{userDetails[0]?.wins}</b> wins!
+          </Typography>
         </Box>
       )}
       <Typography variant="h5">Leaderboard:</Typography>
@@ -75,10 +77,9 @@ function Leaderboard() {
           sorting: {
             sortModel: [{ field: "events_played", sort: "desc" }],
           },
-          
         }}
-        filterModel= {{
-          items: [{ field: 'complete', operator: 'is', value: 'true'}]
+        filterModel={{
+          items: [{ field: "complete", operator: "is", value: "true" }],
         }}
         onRowClick={(params) => {
           console.log(params);

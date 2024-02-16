@@ -9,6 +9,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 
   const queryText = `SELECT 
     events.course,
+    events.id,
     events.date,
     events.format,
     events.complete,
