@@ -104,6 +104,9 @@ function UpcomingEvents() {
               complete: false,
             },
           },
+          sorting: {
+            sortModel: [{ field: "date", sort: "asc" }],
+          }
         }}
         filterModel={{
           items: [{ field: "complete", operator: "is", value: "false" }],

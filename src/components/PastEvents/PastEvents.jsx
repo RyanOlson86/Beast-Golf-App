@@ -64,6 +64,9 @@ function PastEvents() {
             columnVisibilityModel: {
               complete: false
             }
+          },
+          sorting: {
+            sortModel: [{ field: "date", sort: "desc" }],
           }
         }}
         filterModel= {{

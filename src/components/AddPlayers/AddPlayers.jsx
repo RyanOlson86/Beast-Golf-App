@@ -43,6 +43,7 @@ function AddPlayers({ event_id }) {
         borderRadius: "5px",
         border: "solid 1px grey",
         m: "5%",
+        width: 'fit-content',
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",

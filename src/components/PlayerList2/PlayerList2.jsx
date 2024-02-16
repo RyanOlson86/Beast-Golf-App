@@ -33,7 +33,7 @@ function PlayerList2({ teams, event_id, complete}) {
               </TableCell>
               <TableCell align="left">{row.player2}</TableCell>
               <TableCell align="center">{row.penalty}</TableCell>
-              <TableCell align="center">{row.score}</TableCell>
+              <TableCell align="center" ><b>{row.score}</b></TableCell>
               {complete ==false && <UpdateScoreInput row_id={row.id} event_id={event_id} />}
             </TableRow>
           ))}
