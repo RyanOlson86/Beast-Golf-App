@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import AddPlayers from "../AddPlayers/AddPlayers";
 import PlayerList2 from "../PlayerList2/PlayerList2";
 import Swal from "sweetalert2";
 import genStyle from "../Styles/Styles";
+import BackButton from "../BackButton/BackButton";
 
 function ModifyEvents() {
   const dispatch = useDispatch();
@@ -53,25 +54,28 @@ function ModifyEvents() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, textAlign: "center" }}>
-      <center>
-        <Box sx={{ ...genStyle.box, width: "fit-content" }}>
-          <Typography variant="h4">{eventDetails?.course}</Typography>
-          <Typography variant="h5">{new Date(eventDetails?.date).toLocaleDateString()}</Typography>
-          <Typography variant="h6">{eventDetails?.format}</Typography>
-          <Typography variant="h6">{eventDetails?.teebox} Tees</Typography>
-          {user.access_level === 1 && eventDetails.complete == false && (
-            <Button variant="contained" color="secondary" size="small" sx={{ m: "10px" }} onClick={handleComplete}>
-              Mark Event Complete
-            </Button>
-          )}
-        </Box>
-      </center>
-      {/* Add PlayerList component and pass event */}
-      {user.access_level === 1 && eventDetails.complete == false && <AddPlayers event_id={id} />}
-      {/* <PlayerList teams={teams} /> */}
-      <PlayerList2 teams={teams} event_id={id} complete={eventDetails?.complete} />
-    </Box>
+    <>
+      <BackButton text={"⬅ BACK"} path={"/events"}  sxStyle={genStyle.topBtn}/>
+      <Box sx={{ flexGrow: 1, textAlign: "center" }}>
+        <center>
+          <Box sx={{ ...genStyle.box, width: "fit-content" }}>
+            <Typography variant="h4">{eventDetails?.course}</Typography>
+            <Typography variant="h5">{new Date(eventDetails?.date).toLocaleDateString()}</Typography>
+            <Typography variant="h6">{eventDetails?.format}</Typography>
+            <Typography variant="h6">{eventDetails?.teebox} Tees</Typography>
+            {user.access_level === 1 && eventDetails.complete == false && (
+              <Button variant="contained" color="secondary" size="small" sx={{ m: "10px" }} onClick={handleComplete}>
+                Mark Event Complete
+              </Button>
+            )}
+          </Box>
+        </center>
+        {/* Add PlayerList component and pass event */}
+        {user.access_level === 1 && eventDetails.complete == false && <AddPlayers event_id={id} />}
+        {/* <PlayerList teams={teams} /> */}
+        <PlayerList2 teams={teams} event_id={id} complete={eventDetails?.complete} />
+      </Box>
+    </>
   );
 }
 
