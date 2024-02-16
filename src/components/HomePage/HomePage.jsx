@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Box, Typography } from "@mui/material";
 import MyImageList from "../MyImageList/MyImageList";
+import genStyle from "../Styles/Styles";
 
 function HomePage() {
   const user = useSelector((store) => store.user);
@@ -9,7 +10,7 @@ function HomePage() {
   return (
     <>
       <center>
-        <Box sx={{ display: "flex", width: "90%", textAlign: 'justify', marginBottom: 10, bgcolor: 'white', borderRadius: 2 }}>
+        <Box sx={{ display: "flex", width: "90%", textAlign: 'justify', marginBottom: 10, ...genStyle.box}}>
           <Box sx={{ width: "60%", p: 3 }}>
             <Typography variant="h4">Welcome to the BGA!</Typography>
             <Typography variant="p">

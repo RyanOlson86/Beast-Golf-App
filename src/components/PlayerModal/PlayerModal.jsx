@@ -4,9 +4,9 @@ import { useState } from 'react';
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js"
 import LineChart from '../LineChart/LineChart';
+import genStyle from '../Styles/Styles';
 
 Chart.register(CategoryScale);
-
 
 const style = {
   position: 'absolute',
@@ -14,10 +14,8 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '70%',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  ...genStyle.box
 };
 
 export default function PlayerModal({handleClose, open, playerDetails, name}) {

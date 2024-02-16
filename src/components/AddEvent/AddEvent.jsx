@@ -68,7 +68,7 @@ function AddEvent() {
       sx={{
         bgcolor: "#d1d1d1",
         borderRadius: "5px",
-        border: "solid 1px grey",
+        border: "solid 2px black",
         m: "5%",
         width: 'fit-content',
         display: 'flex',
