@@ -8,6 +8,12 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from 'dayjs'
 
+const mockData = {
+  course: 'The Refuge',
+  format: '2-person Scramble',
+  teebox: 'Blues',
+}
+
 function AddEvent() {
   // Using hooks create local state for form inputs
   const [courseInput, setCourse] = useState("");
@@ -49,14 +55,22 @@ function AddEvent() {
     defaultInputs();
   };
 
+  const handleMock = ()=>{
+    setCourse(mockData.course);
+    setFormat(mockData.format);
+    setTeebox(mockData.teebox);
+    console.log(dayjs());
+  }
+
   return (
     <Box
       component="form"
       sx={{
         bgcolor: "#d1d1d1",
         borderRadius: "5px",
-        border: "solid 1px grey",
+        border: "solid 2px black",
         m: "5%",
+        width: 'fit-content',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
@@ -65,7 +79,7 @@ function AddEvent() {
       noValidate
       autoComplete="off"
     >
-      <Typography variant="h5" sx={{m: 1}} >Add A New Event:</Typography>
+      <Typography variant="h5" sx={{m: 1}} onClick={handleMock}>Add A New Event:</Typography>
       <Box sx={{
         "& > :not(style)": { m: 1, width: "20ch" },
         display: 'flex',

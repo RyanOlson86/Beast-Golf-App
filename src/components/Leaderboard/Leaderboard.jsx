@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import { Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PlayerModal from "../PlayerModal/PlayerModal";
 import axios from "axios";
+import genStyle from "../Styles/Styles";
+import BackButton from "../BackButton/BackButton";
+import HomeIcon from '@mui/icons-material/Home';
+import GolfCourseIcon from '@mui/icons-material/GolfCourse';
 
 const columns = [
   {
@@ -28,6 +32,12 @@ const columns = [
 ];
 
 function Leaderboard() {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_PLAYERS" });
+  }, []);
+
   const players = useSelector((store) => store?.players);
   const user = useSelector((store) => store?.user);
 
@@ -41,12 +51,13 @@ function Leaderboard() {
   const [playerName, setPlayerName] = useState("");
 
   // Local State for UserDetails
-  const userDetails = players.filter(player => player.id === user.player_id)
+  const userDetails = players.filter((player) => player.id === user.player_id);
 
   const fetchDetails = (id, name) => {
     axios
       .get(`api/details/${id}`)
       .then((response) => {
+        console.log("details response", response.data);
         setPlayerDetails(response.data);
         if (name != undefined) {
           setPlayerName(name);
@@ -58,30 +69,40 @@ function Leaderboard() {
   };
 
   return (
-    <Box sx={{ height: 600, width: "90%", m: "5%" }}>
-      {user.player_id && (
-        <Box sx={{marginBottom: '5%'}}>
-          <Typography variant="h4" >Welcome {userDetails[0]?.full_name}!</Typography>
-          <Typography variant="h6" >You have played <b>{userDetails[0]?.events_played}</b> events with <b>{userDetails[0]?.wins}</b> wins!</Typography>
-        </Box>
-      )}
-      <Typography variant="h5">Leaderboard:</Typography>
-      <DataGrid
-        rows={players}
-        columns={columns}
-        initialState={{
-          sorting: {
-            sortModel: [{ field: "events_played", sort: "desc" }],
-          },
-        }}
-        onRowClick={(params) => {
-          console.log(params);
-          fetchDetails(params.id, params.row.full_name);
-          handleOpen();
-        }}
-      />
-      {<PlayerModal name={playerName} handleClose={handleClose} open={open} playerDetails={playerDetails} />}
-    </Box>
+    <>
+    <BackButton text={'HOME'} path={'/home'} icon={<HomeIcon />} sxStyle={genStyle.topBtn}/>
+    <BackButton text={'EVENTS'} path={'/events'} icon={<GolfCourseIcon />} sxStyle={genStyle.topBtn}/>
+    
+      <Box sx={{ ...genStyle.box, height: 600, width: "90%", m: "5%", paddingBottom: "205px" }}>
+        {user.player_id && (
+          <Box sx={{ marginBottom: "5%" }}>
+            <Typography variant="h4">Welcome {userDetails[0]?.full_name}!</Typography>
+            <Typography variant="h6">
+              You have played <b>{userDetails[0]?.events_played}</b> events with <b>{userDetails[0]?.wins}</b> wins!
+            </Typography>
+          </Box>
+        )}
+        <Typography variant="h5">Leaderboard:</Typography>
+        <DataGrid
+          rows={players}
+          columns={columns}
+          initialState={{
+            sorting: {
+              sortModel: [{ field: "events_played", sort: "desc" }],
+            },
+          }}
+          filterModel={{
+            items: [{ field: "complete", operator: "is", value: "true" }],
+          }}
+          onRowClick={(params) => {
+            console.log(params);
+            fetchDetails(params.id, params.row.full_name);
+            handleOpen();
+          }}
+        />
+        {<PlayerModal name={playerName} handleClose={handleClose} open={open} playerDetails={playerDetails} />}
+      </Box>
+    </>
   );
 }
 

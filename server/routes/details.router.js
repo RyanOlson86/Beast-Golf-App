@@ -9,14 +9,18 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 
   const queryText = `SELECT 
     events.course,
+    events.id,
     events.date,
     events.format,
+    events.complete,
     event_scores.score_final
     FROM "events"
     LEFT JOIN event_scores ON event_scores.event_id=events.id
     LEFT JOIN players AS p1 ON p1.id=event_scores.player_one
     LEFT JOIN players AS p2 ON p2.id=event_scores.player_two
-    WHERE p1.id = $1 OR p2.id = $1 LIMIT 10;`;
+    WHERE p1.id = $1 AND events.complete=true
+    OR p2.id = $1 AND events.complete=true
+    ORDER BY events.date DESC LIMIT 10;`;
 
   pool
     .query(queryText, [req.params.id])

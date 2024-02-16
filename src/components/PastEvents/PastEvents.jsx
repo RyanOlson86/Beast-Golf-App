@@ -4,6 +4,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import genStyle from "../Styles/Styles";
 
 const columns = [
   {
@@ -47,7 +48,7 @@ function PastEvents() {
   }
 
   return (
-    <Box sx={{ height: 400, width: "90%", m: "5%", marginTop: '10%' }}>
+    <Box sx={{...genStyle.box,  height: 400, m: '5%' , paddingBottom: '105px'}}>
       <Typography variant="h5">Past Events:</Typography>
       <Button variant="contained" size="small" sx={{ m: "10px" }} onClick={handleView}>View Event</Button>
       <DataGrid
@@ -63,6 +64,9 @@ function PastEvents() {
             columnVisibilityModel: {
               complete: false
             }
+          },
+          sorting: {
+            sortModel: [{ field: "date", sort: "desc" }],
           }
         }}
         filterModel= {{

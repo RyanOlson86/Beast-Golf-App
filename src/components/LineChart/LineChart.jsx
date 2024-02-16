@@ -3,17 +3,19 @@ import { Line } from "react-chartjs-2";
 import { useState } from "react";
 
 function LineChart({ playerDetails, name }) {
+  const newDetails = playerDetails.sort((a, b) => (a.id - b.id))
+  const xAxis = newDetails.map((data) => ({course: data?.course, date: new Date(data?.date).toLocaleDateString()}))
 
   return (
     <div className="chart-container">
       <h2 style={{ textAlign: "center" }}>Past Results for {name}</h2>
       <Line
         data={{
-          labels: playerDetails.map((data) => data?.course), 
+          labels: xAxis.map((data) => (data?.course)), 
           datasets: [
             {
               label: "Score",
-              data: playerDetails.map((data) => data.score_final),
+              data: newDetails.map((data) => data.score_final),
               backgroundColor: [
                 '#252df5'
               ],
