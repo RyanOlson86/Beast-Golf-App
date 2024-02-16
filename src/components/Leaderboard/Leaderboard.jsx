@@ -48,6 +48,7 @@ function Leaderboard() {
     axios
       .get(`api/details/${id}`)
       .then((response) => {
+        console.log('details response', response.data)
         setPlayerDetails(response.data);
         if (name != undefined) {
           setPlayerName(name);
@@ -74,6 +75,10 @@ function Leaderboard() {
           sorting: {
             sortModel: [{ field: "events_played", sort: "desc" }],
           },
+          
+        }}
+        filterModel= {{
+          items: [{ field: 'complete', operator: 'is', value: 'true'}]
         }}
         onRowClick={(params) => {
           console.log(params);
