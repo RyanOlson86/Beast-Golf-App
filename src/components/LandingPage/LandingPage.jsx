@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom";
 import "./LandingPage.css";
 import { Button, Box, Grid } from "@mui/material";
 import genStyle from "../Styles/Styles";
-
-// CUSTOM COMPONENTS
 import RegisterForm from "../RegisterForm/RegisterForm";
 
 function LandingPage() {

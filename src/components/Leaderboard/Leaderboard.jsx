@@ -1,39 +1,37 @@
 import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
-import { Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import PlayerModal from "../PlayerModal/PlayerModal";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+
+import { DataGrid } from "@mui/x-data-grid";
+import { Typography, Box } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import GolfCourseIcon from "@mui/icons-material/GolfCourse";
+
+import PlayerModal from "../PlayerModal/PlayerModal";
 import genStyle from "../Styles/Styles";
 import BackButton from "../BackButton/BackButton";
-import HomeIcon from '@mui/icons-material/Home';
-import GolfCourseIcon from '@mui/icons-material/GolfCourse';
 
 const columns = [
   {
     field: "full_name",
     headerName: "Name",
     width: 150,
-    // editable: true,
   },
   {
     field: "events_played",
     headerName: "Events",
     width: 150,
-    // editable: true,
   },
   {
     field: "wins",
     headerName: "Wins",
     width: 110,
-    // editable: true,
   },
 ];
 
 function Leaderboard() {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch({ type: "FETCH_ALL_PLAYERS" });
   }, []);
@@ -53,6 +51,7 @@ function Leaderboard() {
   // Local State for UserDetails
   const userDetails = players.filter((player) => player.id === user.player_id);
 
+  // Axios request for individual player details for last 10 events
   const fetchDetails = (id, name) => {
     axios
       .get(`api/details/${id}`)
@@ -70,9 +69,9 @@ function Leaderboard() {
 
   return (
     <>
-    <BackButton text={'HOME'} path={'/home'} icon={<HomeIcon />} sxStyle={genStyle.topBtn}/>
-    <BackButton text={'EVENTS'} path={'/events'} icon={<GolfCourseIcon />} sxStyle={genStyle.topBtn}/>
-    
+      <BackButton text={"HOME"} path={"/home"} icon={<HomeIcon />} sxStyle={genStyle.topBtn} />
+      <BackButton text={"EVENTS"} path={"/events"} icon={<GolfCourseIcon />} sxStyle={genStyle.topBtn} />
+
       <Box sx={{ ...genStyle.box, height: 600, width: "90%", m: "5%", paddingBottom: "205px" }}>
         {user.player_id && (
           <Box sx={{ marginBottom: "5%" }}>

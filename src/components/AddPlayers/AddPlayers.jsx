@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Typography, Select, TextField, Box, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { Button, Typography, Select, Box, MenuItem, FormControl, InputLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 function AddPlayers({ event_id }) {
