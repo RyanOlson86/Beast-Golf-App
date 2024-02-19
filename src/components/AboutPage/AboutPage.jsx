@@ -18,6 +18,7 @@ function AboutPage() {
             <li>Material UI</li>
             <li>React</li>
             <li>Redux</li>
+            <li>Redux-Saga</li>
             <li>Node.js</li>
             <li>Axios</li>
             <li>Express</li>
@@ -37,6 +38,13 @@ function AboutPage() {
             you to the BGA for the inspiration to build an app I am truly passionate about. And finally, thank you to the Peridot
             Cohort for being such a great team to learn and work with.
           </p>
+          <h3>Links</h3>
+          <div>
+            <a href="https://github.com/RyanOlson86/Beast-Golf-App">github.com/RyanOlson86/Beast-Golf-App</a>
+          </div>
+          <div>
+            <a href="https://www.linkedin.com/in/ryan-olson-28223a93/">linkedin.com/in/ryan-olson-28223a93/</a>
+          </div>
         </div>
       </Box>
     </center>
