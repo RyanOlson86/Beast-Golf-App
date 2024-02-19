@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
-import AddEvent from "../AddEvent/AddEvent";
 import { useSelector, useDispatch } from "react-redux";
-import PastEvents from "../PastEvents/PastEvents";
-import BackButton from "../BackButton/BackButton";
+
 import HomeIcon from '@mui/icons-material/Home';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import genStyle from "../Styles/Styles";
 
+import genStyle from "../Styles/Styles";
+import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
+import AddEvent from "../AddEvent/AddEvent";
+import PastEvents from "../PastEvents/PastEvents";
+import BackButton from "../BackButton/BackButton";
 
 function EventsPage() {
   const user = useSelector((store) => store.user);

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box , Button} from '@mui/material';
-import { useHistory } from 'react-router-dom';
-import RegisterForm from '../RegisterForm/RegisterForm';
+import React from "react";
+import { Box, Button } from "@mui/material";
+import { useHistory } from "react-router-dom";
+import RegisterForm from "../RegisterForm/RegisterForm";
 
 function RegisterPage() {
   const history = useHistory();
@@ -18,7 +18,6 @@ function RegisterPage() {
       >
         Login
       </Button>
-
     </Box>
   );
 }

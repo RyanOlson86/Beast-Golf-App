@@ -1,7 +1,5 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
+import {Box, ImageList, ImageListItem } from "@mui/material";
 import genStyle from "../Styles/Styles";
 
 const itemData = [

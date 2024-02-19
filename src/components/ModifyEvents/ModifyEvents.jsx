@@ -55,7 +55,7 @@ function ModifyEvents() {
 
   return (
     <>
-      <BackButton text={"⬅ BACK"} path={"/events"}  sxStyle={genStyle.topBtn}/>
+      <BackButton text={"⬅ BACK"} path={"/events"} sxStyle={genStyle.topBtn} />
       <Box sx={{ flexGrow: 1, textAlign: "center" }}>
         <center>
           <Box sx={{ ...genStyle.box, width: "fit-content" }}>
