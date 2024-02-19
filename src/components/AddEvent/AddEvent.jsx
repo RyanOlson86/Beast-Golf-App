@@ -9,7 +9,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from 'dayjs'
 
 const mockData = {
-  course: 'The Refuge',
+  course: 'Prestwick',
   format: '2-person Scramble',
   teebox: 'Blues',
 }
