@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
-import { Button, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { DataGrid } from "@mui/x-data-grid";
+import { Button, Typography, Box } from "@mui/material";
 import Swal from "sweetalert2";
 import genStyle from "../Styles/Styles";
 
@@ -12,26 +11,22 @@ const columns = [
     field: "course",
     headerName: "Course",
     width: 150,
-    // editable: true,
   },
   {
     field: "date",
     headerName: "Date",
     width: 150,
-    // editable: true,
     valueFormatter: (params) => new Date(params?.value).toLocaleDateString(),
   },
   {
     field: "teebox",
     headerName: "Teebox",
     width: 110,
-    // editable: true,
   },
   {
     field: "format",
     headerName: "Format",
     width: 150,
-    // editable: true,
   },
   {
     field: "complete",
@@ -77,7 +72,7 @@ function UpcomingEvents() {
   };
 
   return (
-    <Box sx={{...genStyle.box,  height: 400, m: '5%' , paddingBottom: '105px'}}>
+    <Box sx={{ ...genStyle.box, height: 400, m: "5%", paddingBottom: "105px" }}>
       <Typography variant="h5">Upcoming Events:</Typography>
       {user.access_level === 1 && (
         <Button variant="contained" size="small" sx={{ m: "10px" }} onClick={handleAddPlayers}>
@@ -106,7 +101,7 @@ function UpcomingEvents() {
           },
           sorting: {
             sortModel: [{ field: "date", sort: "asc" }],
-          }
+          },
         }}
         filterModel={{
           items: [{ field: "complete", operator: "is", value: "false" }],

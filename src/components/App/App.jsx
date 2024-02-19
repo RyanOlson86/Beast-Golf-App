@@ -14,7 +14,6 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
 import EventsPage from '../EventsPage/EventsPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
@@ -24,7 +23,6 @@ import './App.css';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import HomePage from '../HomePage/HomePage';
 import ModifyEvents from '../ModifyEvents/ModifyEvents';
-import TestGrid from '../TestGrid/TestGrid';
 import AdminPage from '../AdminPage/AdminPage';
 
 function App() {
@@ -54,19 +52,6 @@ function App() {
           >
             <AboutPage />
           </Route>
-
-          {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:5173/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:5173/user */}
-            // ! Can Delete route below
-          {/* <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/user"
-          >
-            <UserPage />
-          </ProtectedRoute> */}
 
           <ProtectedRoute
             // logged in shows EventsPage else shows LoginPage
@@ -98,15 +83,6 @@ function App() {
             path="/admin"
           >
             {user.access_level === 1 ? <AdminPage /> : <Redirect to='/home'/>}
-          </ProtectedRoute>
-
-          // TODO: Delete test page when done
-          <ProtectedRoute
-            // logged in shows TestGrid else shows LoginPage
-            exact
-            path="/test/:pageId"
-          >
-            <TestGrid />
           </ProtectedRoute>
 
           <Route
